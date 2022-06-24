@@ -1,0 +1,5 @@
+pip-tools
+SQLAlchemy
+psycopg2
+python-environ
+alembic
