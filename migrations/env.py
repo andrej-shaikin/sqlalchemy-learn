@@ -1,4 +1,7 @@
+import os
+from importlib import import_module
 from logging.config import fileConfig
+from pathlib import Path
 
 from alembic import context
 from sqlalchemy import engine_from_config
@@ -6,6 +9,10 @@ from sqlalchemy import pool
 
 from db import BaseModel
 from settings import DATABASE_DSN
+
+# import models.py for register BaseModel
+for migration_module in Path(Path(__file__).parent.parent / 'apps').rglob("**/models.py"):
+    import_module(f"{migration_module}".replace(os.sep, ".").removesuffix(".py"))
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
